@@ -17,7 +17,13 @@ if(isset($_POST['input-number']) && !empty($_POST['input-number'])) {
 
     $password = generatePassword($password_length);
 
-    $message = "La tua nuova password è: $password";
+
+    session_start();
+    $_SESSION['password'] = $password;
+
+    header('Location: showpassword.php');
+    exit();
+    // $message = "La tua nuova password è: $password";
     // var_dump($password);
   }
 };
@@ -59,7 +65,7 @@ if(isset($_POST['input-number']) && !empty($_POST['input-number'])) {
       </div>
       <button class="btn btn-primary mt-2" type="submit">Invia</button>
       <!-- <button class="btn btn-warning ms-2 " type="reset">Reset</button> -->
-      <a href="index.php" class="btn btn-secondary mt-2">Torna indietro</a>
+      <!-- <a href="index.php" class="btn btn-secondary mt-2">Torna indietro</a> -->
     </form>
 
   </div>
