@@ -12,19 +12,15 @@ if(isset($_POST['input-number']) && !empty($_POST['input-number'])) {
   if($password_length < $min || $password_length > $max) {
     $message = "Errore! Il valore inserito deve essere compreso tra $min e $max";
   } else {
-    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=';
 
-    for($i = 0; $i < $password_length; $i++) {
-      $index_random = rand(0, strlen($characters) -1);
-      $char = $characters[$index_random];
-      $password .= $char;
+    include __DIR__ .'/partials/functions.php';
 
-      $message = "La tua nuova password è: $password";
-    }
+    $password = generatePassword($password_length);
+
+    $message = "La tua nuova password è: $password";
     // var_dump($password);
   }
 };
-
 
 ?>
 
