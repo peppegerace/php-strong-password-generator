@@ -1,3 +1,33 @@
+<?php 
+
+$min = 8;
+$max = 32;
+$message = "Scegliere una password con un minimo di $min caratteri e un massimo di $max caratteri";
+$password = '';
+
+if(isset($_POST['input-number']) && !empty($_POST['input-number'])) {
+  
+  $password_length = $_POST['input-number'];
+
+  if($password_length < $min || $password_length > $max) {
+    $message = "Errore! Il valore inserito deve essere compreso tra $min e $max";
+  } else {
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=';
+
+    for($i = 0; $i < $password_length; $i++) {
+      $index_random = rand(0, strlen($characters) -1);
+      $char = $characters[$index_random];
+      $password .= $char;
+
+      $message = "La tua nuova password è: $password";
+    }
+    // var_dump($password);
+  }
+};
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,20 +48,22 @@
       <h2>Genera una password sicura</h2>
     </div>
 
-    <div class="info bg-gradient p-1 my-3 ">
-      <p>Scegliere una password con un minimo di 8 caratteri e un massimo di 32 caratteri</p>
+    <div class="alert alert-success p-1 my-3 rounded-1">
+      <p> <?php echo $message ?> </p>
     </div>
 
-    <form action="index.php" method="POST" class="bg-body-tertiary p-2">
+    <form action="index.php" method="POST" class="bg-body-tertiary p-2 rounded-1">
       <div class="row">
         <div class="col-auto">
           <label for="input-number" class="col-form-label">Inserire lunghezza password</label>
         </div>
         <div class="col-auto">
-          <input type="number" name="input-number" class="form-control" min="8" max="32" >
+          <input type="number" name="input-number" class="form-control">
         </div>
       </div>
       <button class="btn btn-primary mt-2" type="submit">Invia</button>
+      <!-- <button class="btn btn-warning ms-2 " type="reset">Reset</button> -->
+      <a href="index.php" class="btn btn-secondary mt-2">Torna indietro</a>
     </form>
 
   </div>
